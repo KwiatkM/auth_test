@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testowa aplikacja - Microsoft Entra External ID</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .user-info {
+            display: none;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .user-info.active {
+            display: block;
+        }
+
+        .user-info h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .user-detail {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .user-detail strong {
+            color: #667eea;
+            display: inline-block;
+            width: 120px;
+        }
+
+        .login-section {
+            text-align: center;
+        }
+
+        .login-section.hidden {
+            display: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .welcome-message {
+            display: none;
+            text-align: center;
+            color: #28a745;
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .welcome-message.active {
+            display: block;
+        }
+
+        .error-message {
+            display: none;
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #667eea;
+            font-size: 16px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #1565C0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 Testowa Aplikacja</h1>
+            <p>Logowanie przez Microsoft Entra External ID</p>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Trwa logowanie...</p>
+        </div>
+
+        <div class="welcome-message" id="welcomeMessage"></div>
+
+        <div class="user-info" id="userInfo">
+            <h3>📋 Informacje o użytkowniku</h3>
+            <div class="user-detail"><strong>Imię:</strong> <span id="userName"></span></div>
+            <div class="user-detail"><strong>Email:</strong> <span id="userEmail"></span></div>
+            <div class="user-detail"><strong>ID:</strong> <span id="userId"></span></div>
+        </div>
+
+        <div class="login-section" id="loginSection">
+            <button class="btn" id="loginBtn">Zaloguj się</button>
+        </div>
+
+        <div class="login-section hidden" id="logoutSection">
+            <button class="btn btn-secondary" id="logoutBtn">Wyloguj się</button>
+        </div>
+
+        <div class="info-box">
+            <strong>ℹ️ Informacja:</strong> Ta aplikacja używa Microsoft Entra External ID do bezpiecznej autentykacji użytkowników.
+        </div>
+    </div>
+
+    <script src="https://alcdn.msauth.net/browser/2.38.1/js/msal-browser.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
