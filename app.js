@@ -2,9 +2,9 @@
 // UWAGA: Zamień poniższe wartości na właściwe dla Twojej aplikacji
 const msalConfig = {
     auth: {
-        clientId: CLIENT_ID, // Application (client) ID z Azure Portal
-        authority: AUTHORITY, // Twoja domena External ID
-        redirectUri: window.location.origin, // URL Twojej aplikacji
+        clientId: "443456e2-c87a-425d-9ce8-96b59b338499", // Application (client) ID z Azure Portal
+        authority: "https://test153452.ciamlogin.com/", // Twoja domena External ID
+        redirectUri: window.location.origin, // URL Twojej aplikacji - automatycznie dostosowuje się do środowiska
     },
     cache: {
         cacheLocation: "sessionStorage", // Przechowywanie tokenów w sessionStorage
